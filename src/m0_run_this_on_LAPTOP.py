@@ -52,7 +52,7 @@ def main():
     delegate.set_mqtt_sender(mqtt_sender)
 
     mqtt_sender.connect_to_ev3(lego_robot_number = 04)
-    # TODO 3: Replace 99 in the above by YOUR team's robot number.
+    # DONE 3: Replace 99 in the above by YOUR team's robot number.
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
