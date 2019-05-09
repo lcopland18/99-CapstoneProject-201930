@@ -6,7 +6,7 @@
     and Ruth Hammond.
   Spring term, 2018-2019.
 """
-# DONE 1:  Put your name in the above.
+# DONE 1:  Put your name in the above.:)
 
 import tkinter
 from tkinter import ttk
