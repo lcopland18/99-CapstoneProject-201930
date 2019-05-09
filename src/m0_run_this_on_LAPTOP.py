@@ -6,7 +6,7 @@
     and Justin Guilfoyle, Lauren Copland, Ruth Hammond.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put the name of EACH team member in the above.
+# DONE 1:  Put the name of EACH team member in the above.
 
 import tkinter
 from tkinter import ttk
