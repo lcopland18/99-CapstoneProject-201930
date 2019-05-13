@@ -28,18 +28,18 @@ def get_my_frame(root, window, mqtt_sender):
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
-    distance_label = ttk.Label(frame, text = 'Distance to travel in inches')
+    distance_label = ttk.Label(frame, text='Distance to travel in inches')
     distance_box = ttk.Entry(frame, width=8)
-    speed_label = ttk.Label(frame, text = 'Speed from 0 to 100')
+    speed_label = ttk.Label(frame, text='Speed from 0 to 100')
     speed_entry = ttk.Entry(frame, width=8)
     speed_entry.insert(0, "100")
 
-    forward_button.grid(row=1, column=0)
-    backward_button.grid(row=1, column=2)
-    speed_label.grid(row=2, column=2)
-    speed_entry.grid(row=3, column=2)
-    distance_label.grid(row=2, column=0)
-    distance_box.grid(row=3, column=0)
+    forward_button.grid(row=3, column=0)
+    backward_button.grid(row=3, column=2)
+    speed_label.grid(row=1, column=2)
+    speed_entry.grid(row=2, column=2)
+    distance_label.grid(row=1, column=0)
+    distance_box.grid(row=2, column=0)
 
     # Return your frame:
     return frame
