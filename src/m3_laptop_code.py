@@ -23,7 +23,8 @@ def get_my_frame(root, window, mqtt_sender):
     frame_label.grid()
     # TODO 2: Put your name in the above.
 
-    armup_button = window.Button(frame,test = "Arm Up")
+    armup_button = ttk.Button(frame,text = "Arm Up")
+    armup_button.grid()
     #armup_button["command"] = lambda: arm_up(mqtt_sender)
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
