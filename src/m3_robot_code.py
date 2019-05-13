@@ -1,7 +1,7 @@
 """
   Capstone Project.  Code to run on the EV3 robot (NOT on a laptop).
   Author:  Your professors (for the framework)
-    and PUT_YOUR_NAME_HERE.
+    and Ruth Hammond.
   Spring term, 2018-2019.
 """
 # TODO 1:  Put your name in the above.
@@ -27,6 +27,9 @@ class MyRobotDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
+    #def arm_up(self):
+
+
 
 
 def print_message_received(method_name, arguments=None):
