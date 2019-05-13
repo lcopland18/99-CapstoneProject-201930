@@ -38,6 +38,7 @@ class MyRobotDelegate(object):
         while True:
             if self.robot.drive_system.left_motor.get_position() == (self.robot.drive_system.wheel_circumference/distance)*360:
                 self.robot.drive_system.stop()
+                break
 
     # TODO: Add methods here as needed.
 
