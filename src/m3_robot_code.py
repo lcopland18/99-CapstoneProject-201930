@@ -32,6 +32,7 @@ class MyRobotDelegate(object):
 
 
 
+
 def print_message_received(method_name, arguments=None):
     print()
     print("The robot's delegate has received a message")
