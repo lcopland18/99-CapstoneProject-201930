@@ -45,6 +45,9 @@ def get_my_frame(root, window, mqtt_sender):
     armdown_button = ttk.Button(frame, text="Arm Down")
     armdown_button.grid(row =3,column = 1 )
 
+    armto_button["command"] = lambda: handle_arm_up(
+        armspeed_entry, mqtt_sender)
+
 
 
     #armup_button["command"] = lambda: arm_up(mqtt_sender)
@@ -69,6 +72,10 @@ class MyLaptopDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
+    def handle_arm_up(armspeed_entry,mqtt_sender):
+        print('Arm Up:', armspeed_entry)
+        mqtt_sender.send_message("Arm_Up", [armspeed_entry.get()])
+
 
 
 # TODO: Add functions here as needed.

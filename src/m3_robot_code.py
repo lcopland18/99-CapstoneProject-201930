@@ -27,11 +27,24 @@ class MyRobotDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
-    #def arm_up(self):
+    def arm_up(self, speed):
+        real_speed = int(speed)
+        while True:
+            self.robot.arm_and_claw.motor.turn_on(real_speed)
+            if (self.robot.arm_and_claw.touch_sensor.is_pressed() is True):
+                break
+        self.robot.arm_and_claw.motor.turn_off()
 
+    def move_arm_to_position(self,speed,position):
+        real_speed = speed
+        self.robot.arm_and_claw.motor.turn_on(real_speed)
+        while True:
+            if self.robot.arm_and_claw.motor.get_position()==position:
+                self.robot.arm_and_claw.motor.turn_off()
+                break
 
-
-
+    def calibrate(self):
+        self.robot.arm_and_claw.motor.reset_position()
 
 def print_message_received(method_name, arguments=None):
     print()
