@@ -48,11 +48,11 @@ def get_my_frame(root, window, mqtt_sender):
     return frame
 
 
-def forward(speed_entry, distance_entry, mqtt_sender):
+def forward(speed, distance, mqtt_sender):
     print()
     print("Sending a message to the robot to", forward)
-    print("  using speed:", speed_entry)
-    mqtt_sender.send_message("forward", [speed_entry, distance_entry])
+    print("  using speed:", speed)
+    mqtt_sender.send_message("forward", [speed, distance])
 
 
 class MyLaptopDelegate(object):
