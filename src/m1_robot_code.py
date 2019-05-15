@@ -36,7 +36,7 @@ class MyRobotDelegate(object):
         self.robot.drive_system.go(speed, speed)
         self.robot.drive_system.left_motor.reset_position()
         while True:
-            if self.robot.drive_system.left_motor.get_position() == (self.robot.drive_system.wheel_circumference/distance)*360:
+            if self.robot.drive_system.left_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
                 self.robot.drive_system.stop()
                 break
 
