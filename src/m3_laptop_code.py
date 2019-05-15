@@ -34,23 +34,24 @@ def get_my_frame(root, window, mqtt_sender):
     armto_entry = ttk.Entry(frame,width = 8)
     armto_entry.insert(0, "100")
     armto_entry.grid(row=2, column=1)
+    armto_button["command"] = lambda: handle_move_arm_to_position(armspeed_entry,armto_entry,mqtt_sender)
 
     armcalibrate_button = ttk.Button(frame, text="Calibrate Arm")
     armcalibrate_button.grid(row = 5)
-
+    armcalibrate_button["command"] = lambda: handle_calibrate(mqtt_sender)
 
     armup_button = ttk.Button(frame, text="Arm Up")
     armup_button.grid(row = 3, column = 0 )
+    armup_button["command"] = lambda: handle_arm_up(armspeed_entry,mqtt_sender)
 
     armdown_button = ttk.Button(frame, text="Arm Down")
     armdown_button.grid(row =3,column = 1 )
 
-    armto_button["command"] = lambda: handle_arm_up(
-        armspeed_entry, mqtt_sender)
 
 
 
-    #armup_button["command"] = lambda: arm_up(mqtt_sender)
+
+
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
 
@@ -72,10 +73,21 @@ class MyLaptopDelegate(object):
         self.mqtt_sender = mqtt_sender
 
     # TODO: Add methods here as needed.
-    def handle_arm_up(armspeed_entry,mqtt_sender):
-        print('Arm Up:', armspeed_entry)
-        mqtt_sender.send_message("Arm_Up", [armspeed_entry.get()])
+def handle_arm_up(armspeed_entry,mqtt_sender):
+    speed = int(armspeed_entry.get())
+    print("Moving Arm Up at Speed: ")
+    print('At Speed:', speed)
+    mqtt_sender.send_message("arm_up", [speed])
 
+def handle_move_arm_to_position(armspeed_entry,armto_entry,mqtt_sender):
+    speed = int(armspeed_entry.get())
+    position = int(armto_entry.get())
+    print("Moving to Postion: ",position)
+    print('At Speed: ',speed)
+    mqtt_sender.send_message("move_arm_to_position", [speed, position])
 
+def handle_calibrate(mqtt_sender):
+    print("Calibrating...")
+    mqtt_sender.send_message("calibrate",[])
 
 # TODO: Add functions here as needed.
