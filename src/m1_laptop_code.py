@@ -33,7 +33,7 @@ def get_my_frame(root, window, mqtt_sender):
     speed_label = ttk.Label(frame, text='Speed from 0 to 100')
     speed_entry = ttk.Entry(frame, width=8)
     speed_entry.insert(0, "100")
-    distance_entry.insert(0, '3')
+    distance_entry.insert(0, '1')
 
     forward_button.grid(row=3, column=0)
     backward_button.grid(row=3, column=2)
@@ -42,17 +42,24 @@ def get_my_frame(root, window, mqtt_sender):
     distance_label.grid(row=1, column=0)
     distance_entry.grid(row=2, column=0)
 
-    forward_button['command'] = lambda: forward(speed_entry.get(), distance_entry.get(), mqtt_sender=mqtt_sender)
-
+    forward_button['command'] = lambda: forward(speed_entry.get(), distance_entry.get(), mqtt_sender)
+    backward_button['command'] = lambda: backward(speed_entry.get(), distance_entry.get(), mqtt_sender)
+    
     # Return your frame:
     return frame
 
 
-def forward(direction, speed_entry, distance_entry, mqtt_sender):
+def forward(speed, distance, mqtt_sender):
     print()
-    print("Sending a message to the robot to", direction)
-    print("  using speed:", speed_entry)
-    mqtt_sender.send_message("forward", [speed_entry.get(), distance_entry.get()])
+    print("Sending a message to the robot to", forward)
+    print("  using speed:", speed)
+    mqtt_sender.send_message("forward", [speed, distance])
+
+def backward(speed, distance, mqtt_sender):
+    print()
+    print('Sending a message to the robot to', backward)
+    print('  using speed:', speed)
+    mqtt_sender.send_message('backward', [speed, distance])
 
 
 class MyLaptopDelegate(object):
