@@ -33,7 +33,7 @@ def get_my_frame(root, window, mqtt_sender):
     speed_label = ttk.Label(frame, text='Speed from 0 to 100')
     speed_entry = ttk.Entry(frame, width=8)
     speed_entry.insert(0, "100")
-    distance_entry.insert(0, '3')
+    distance_entry.insert(0, '1')
 
     forward_button.grid(row=3, column=0)
     backward_button.grid(row=3, column=2)
