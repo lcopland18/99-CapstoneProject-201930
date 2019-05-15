@@ -43,7 +43,8 @@ def get_my_frame(root, window, mqtt_sender):
     distance_entry.grid(row=2, column=0)
 
     forward_button['command'] = lambda: forward(speed_entry.get(), distance_entry.get(), mqtt_sender)
-
+    backward_button['command'] = lambda: backward(speed_entry.get(), distance_entry.get(), mqtt_sender)
+    
     # Return your frame:
     return frame
 
@@ -53,6 +54,12 @@ def forward(speed, distance, mqtt_sender):
     print("Sending a message to the robot to", forward)
     print("  using speed:", speed)
     mqtt_sender.send_message("forward", [speed, distance])
+
+def backward(speed, distance, mqtt_sender):
+    print()
+    print('Sending a message to the robot to', backward)
+    print('  using speed:', speed)
+    mqtt_sender.send_message('backward', [speed, distance])
 
 
 class MyLaptopDelegate(object):

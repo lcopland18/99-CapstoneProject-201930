@@ -33,9 +33,24 @@ class MyRobotDelegate(object):
         self.robot.drive_system.go(left_motor_speed, right_motor_speed)
 
     def forward(self, speed, distance):
+        print_message_received('forward', [speed])
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.right_motor.reset_position()
         self.robot.drive_system.go(speed, speed)
+        while True:
+            print(self.robot.drive_system.left_motor.get_position())
+            if self.robot.drive_system.left_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
+                self.robot.drive_system.stop()
+                break
+            if self.robot.drive_system.right_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
+                self.robot.drive_system.stop()
+                break
+
+    def backward(self, speed, distance):
+        print_message_received('backward', [speed])
+        self.robot.drive_system.left_motor.reset_position()
+        self.robot.drive_system.right_motor.reset_position()
+        self.robot.drive_system.go(-speed, -speed)
         while True:
             print(self.robot.drive_system.left_motor.get_position())
             if self.robot.drive_system.left_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
