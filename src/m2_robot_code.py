@@ -1,16 +1,21 @@
 """
   Capstone Project.  Code to run on the EV3 robot (NOT on a laptop).
   Author:  Your professors (for the framework)
-    and PUT_YOUR_NAME_HERE.
+    and Lauren Copland.
   Spring term, 2018-2019.
 """
 # TODO 1:  Put your name in the above.
-
+import math
 import mqtt_remote_method_calls as mqtt
 import rosebot
 import m2_robot_code as m2
 import m3_robot_code as m3
 
+
+def deg_to_motor(degrees):
+    circumference = 2 * 3 * math.pi
+    distance = (degrees / 360) * circumference
+    return (distance / circumference) * 360
 
 class MyRobotDelegate(object):
     """
@@ -32,6 +37,31 @@ class MyRobotDelegate(object):
         self.robot.drive_system.stop()
 
     # TODO: Add methods here as needed.
+
+    # def spin(self,left_speed,right_speed,degrees):
+    #     print("Spin message received:",left_speed,right_speed,degrees)
+    #     self.robot.drive_system.go(left_speed,right_speed)
+
+    def spin_left(self,left_speed,right_speed,degrees):
+        print("Spin Left Received",left_speed,right_speed,degrees)
+        distance = deg_to_motor(degrees)
+        self.robot.drive_system.right_motor.reset_position()
+        self.robot.drive_system.go(left_speed,right_speed)
+        while True:
+            if self.robot.drive_system.right_motor.get_position() == distance:
+                self.robot.drive_system.stop()
+                break
+
+
+
+    # def spin_left(self, speed, distance_deg):
+    #     print("Spin_Robot",speed,distance_deg)
+    #     distance = (2 * 3 * math.pi)*(distance_deg/360) #CONVERT DEGREES TO DISTANCE TRAVELED
+    #     self.robot.drive_system.go(self, -speed, speed)
+    #     self.robot.drive_system.right_motor.reset_position()
+    #     while True:
+    #         if self.robot.drive_system.right_motor.get_position() == distance:
+    #             self.robot.drive_system.stop()
 
 
 def print_message_received(method_name, arguments=None):
