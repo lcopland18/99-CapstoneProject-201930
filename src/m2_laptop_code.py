@@ -30,6 +30,7 @@ def get_my_frame(root, window, mqtt_sender):
     #Buttons and Entry Boxes
     spin_left_button = ttk.Button(frame,text = "Spin Left" )
     spin_right_button = ttk.Button(frame,text = "Spin Right")
+    search_button = ttk.Button(frame,text = "Search for Object")
 
     spin_left_right_entry = ttk.Entry(frame,width = 8)
     spin_left_right_label = ttk.Label(frame, text = "Spin 0° to 360°")
@@ -48,9 +49,12 @@ def get_my_frame(root, window, mqtt_sender):
     spin_speed_entry.grid(column = 1 , row =  5)
     spin_speed_label.grid(column = 1, row = 4 )
 
+    search_button.grid(column = 1, row = 6)
+
     #Lambda Functions
     spin_left_button['command'] = lambda: handle_spin_left(spin_speed_entry,spin_left_right_entry,mqtt_sender)
     spin_right_button['command'] = lambda: handle_spin_right(spin_speed_entry,spin_left_right_entry,mqtt_sender)
+    search_button['command'] = lambda: handle_spin_search(#ADD HERE)
 
 
 
