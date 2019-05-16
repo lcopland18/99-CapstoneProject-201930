@@ -28,6 +28,7 @@ class MyRobotDelegate(object):
 
     # TODO: Add methods here as needed.
     def arm_up(self, speed):
+        print("Robot recieved Arm Up")
         real_speed = int(speed)
         while True:
             self.robot.arm_and_claw.motor.turn_on(real_speed)
@@ -36,17 +37,27 @@ class MyRobotDelegate(object):
         self.robot.arm_and_claw.motor.turn_off()
 
     def move_arm_to_position(self,speed,position):
+        print("Robot recieved Arm To")
         real_speed = speed
-        self.robot.arm_and_claw.motor.turn_on(real_speed)
-        while True:
-            if self.robot.arm_and_claw.motor.get_position()==position:
-                self.robot.arm_and_claw.motor.turn_off()
-                break
+        if position < self.robot.arm_and_claw.motor.get_position():
+            self.robot.arm_and_claw.motor.turn_on(-real_speed)
+            while True:
+                if self.robot.arm_and_claw.motor.get_position() == position:
+                    self.robot.arm_and_claw.motor.turn_off()
+                    break
+        if position > self.robot.arm_and_claw.motor.get_position():
+            self.robot.arm_and_claw.motor.turn_on(real_speed)
+            while True:
+                if self.robot.arm_and_claw.motor.get_position() == position:
+                    self.robot.arm_and_claw.motor.turn_off()
+                    break
 
     def calibrate(self):
+        print("Calibrate")
         self.robot.arm_and_claw.motor.reset_position()
 
     def arm_down(self,speed):
+        print("Robot recieved Arm Down")
         real_speed = -int(speed)
         while True:
             self.robot.arm_and_claw.motor.turn_on(real_speed)
@@ -54,6 +65,15 @@ class MyRobotDelegate(object):
                 break
         self.robot.arm_and_claw.motor.turn_off()
 
+  #  def goes_until_sees_color(self,speed,color):
+        self.robot.drive_system.go(speed, speed)
+        while True:
+            if self.sensor_system:
+                self.robot.drive_system.stop()
+                break
+            if self.robot.drive_system.right_motor.get_position() >= len_deg:
+                self.robot.drive_system.stop()
+                break
 
 
 def print_message_received(method_name, arguments=None):

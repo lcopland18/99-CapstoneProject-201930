@@ -40,14 +40,23 @@ class MyRobotDelegate(object):
 
     def spin_left(self,left_speed,right_speed,degrees):
         print("Spin Left Received",left_speed,right_speed,degrees)
-        distance = degrees * 1 #CHANGE CONSTANT
+        distance = degrees * 5.0 #CHANGE CONSTANT
         self.robot.drive_system.right_motor.reset_position()
         self.robot.drive_system.go(left_speed,right_speed)
         while True:
-            if self.robot.drive_system.right_motor.get_position() == distance:
+            if abs(self.robot.drive_system.right_motor.get_position()) >= distance:
                 self.robot.drive_system.stop()
                 break
 
+    def spin_right(self,left_speed,right_speed,degrees):
+        print("Spin Reft Received",left_speed,right_speed,degrees)
+        distance = degrees * 5.0 #CHANGE CONSTANT
+        self.robot.drive_system.left_motor.reset_position()
+        self.robot.drive_system.go(left_speed,right_speed)
+        while True:
+            if abs(self.robot.drive_system.left_motor.get_position()) >= distance:
+                self.robot.drive_system.stop()
+                break
 
 
     # def spin_left(self, speed, distance_deg):
