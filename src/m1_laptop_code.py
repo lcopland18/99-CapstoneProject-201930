@@ -28,10 +28,16 @@ def get_my_frame(root, window, mqtt_sender):
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
+    go_until_button = ttk.Button(frame, text='Go to object')
     distance_label = ttk.Label(frame, text='Distance to travel in inches')
-    distance_entry = ttk.Entry(frame, width=8)
+    go_until_label = ttk.Label(frame, text='Distance wanted from closest object')
     speed_label = ttk.Label(frame, text='Speed from 0 to 100')
+
+    distance_entry = ttk.Entry(frame, width=8)
     speed_entry = ttk.Entry(frame, width=8)
+    go_until_entry = ttk.Entry(frame, width=8)
+
+
     speed_entry.insert(0, "100")
     distance_entry.insert(0, '1')
 
@@ -41,9 +47,12 @@ def get_my_frame(root, window, mqtt_sender):
     speed_entry.grid(row=2, column=2)
     distance_label.grid(row=1, column=0)
     distance_entry.grid(row=2, column=0)
+    go_until_label.grid(row=4, column=1)
+    go_until_entry.grid(row=5, column=1)
+    go_until_button.grid(row=6, column=1)
 
     forward_button['command'] = lambda: forward(int(speed_entry.get()), int(distance_entry.get()), mqtt_sender)
-    backward_button['command'] = lambda: backward(speed_entry.get(), distance_entry.get(), mqtt_sender)
+    backward_button['command'] = lambda: backward(int(speed_entry.get()), int(distance_entry.get()), mqtt_sender)
 
     # Return your frame:
     return frame
