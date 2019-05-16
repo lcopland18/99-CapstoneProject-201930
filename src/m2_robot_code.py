@@ -58,6 +58,13 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
+    def spin_search(self):
+        print("Spin Search Recieved")
+        self.spin_left(-50,50,2)
+        while True:
+            if self.robot.sensor_system.camera.get_biggest_blob()
+
+        self.robot.sensor_system.camera.get_biggest_blob()
 
     # def spin_left(self, speed, distance_deg):
     #     print("Spin_Robot",speed,distance_deg)
