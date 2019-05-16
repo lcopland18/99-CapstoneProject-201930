@@ -22,21 +22,28 @@ def get_my_frame(root, window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame_label = ttk.Label(frame, text="Lauren Copland")
     frame_label.grid(column = 1, row = 0)
+
+    spin_frame = ttk.Frame(frame, padding = 10, borderwidth = 5, relief = "ridge")
+    search_frame = ttk.Frame(frame,padding = 10, borderwidth = 5, relief = "ridge")
+
+    spin_label = ttk.Label(spin_frame,text = "Spin Buttons")
+    search_label = ttk.Label(search_frame, text = "Search Buttons")
+
     # DONE 2: Put your name in the above.
 
     # Add the rest of your GUI to your frame:
     # TODO: Put your GUI onto your frame (using sub-frames if you wish).
 
     #Buttons and Entry Boxes
-    spin_left_button = ttk.Button(frame,text = "Spin Left" )
-    spin_right_button = ttk.Button(frame,text = "Spin Right")
-    search_button = ttk.Button(frame,text = "Search for Object")
+    spin_left_button = ttk.Button(spin_frame,text = "Spin Left" )
+    spin_right_button = ttk.Button(spin_frame,text = "Spin Right")
+    spin_until_facing_button = ttk.Button(frame,text = "Search for Object")
 
-    spin_left_right_entry = ttk.Entry(frame,width = 8)
-    spin_left_right_label = ttk.Label(frame, text = "Spin 0° to 360°")
+    spin_left_right_entry = ttk.Entry(spin_frame,width = 8)
+    spin_left_right_label = ttk.Label(spin_frame, text = "Spin 0° to 360°")
     spin_left_right_entry.insert(0,'180')
-    spin_speed_entry = ttk.Entry(frame,width = 8)
-    spin_speed_label = ttk.Label(frame,text = "Spin Speed 0 to 100")
+    spin_speed_entry = ttk.Entry(spin_frame,width = 8)
+    spin_speed_label = ttk.Label(spin_frame,text = "Spin Speed 0 to 100")
     spin_speed_entry.insert(0,'100')
 
     #Grid
@@ -49,12 +56,17 @@ def get_my_frame(root, window, mqtt_sender):
     spin_speed_entry.grid(column = 1 , row =  5)
     spin_speed_label.grid(column = 1, row = 4 )
 
-    search_button.grid(column = 1, row = 6)
+    spin_frame.grid(column = 0,row = 1)
+    search_frame.grid(column = 2, row = 1)
+    spin_label.grid()
+    search_label.grid()
+
+    # search_button.grid(column = 1, row = 6)
 
     #Lambda Functions
     spin_left_button['command'] = lambda: handle_spin_left(spin_speed_entry,spin_left_right_entry,mqtt_sender)
     spin_right_button['command'] = lambda: handle_spin_right(spin_speed_entry,spin_left_right_entry,mqtt_sender)
-    search_button['command'] = lambda: handle_spin_search(#ADD HERE)
+    # search_button['command'] = lambda: handle_spin_search(#ADD HERE)
 
 
 
@@ -98,3 +110,7 @@ def handle_spin_right(spin_speed_entry,spin_distance_deg,mqtt_sender):
     speed = int(spin_speed_entry.get())
     distance = int(spin_distance_deg.get())
     mqtt_sender.send_message('spin_right',[-speed,speed,distance])
+
+# def handle_spin_search(mqtt_sender):
+#     print('Spin Search Message:')
+#     mqtt_sender.send_message('spin_search',[])
