@@ -50,6 +50,8 @@ def get_my_frame(root, window, mqtt_sender):
 
     #Lambda Functions
     spin_left_button['command'] = lambda: handle_spin_left(spin_speed_entry,spin_left_right_entry,mqtt_sender)
+    spin_right_button['command'] = lambda: handle_spin_right(spin_speed_entry,spin_left_right_entry,mqtt_sender)
+
 
 
     # Return your frame:
@@ -85,4 +87,10 @@ def handle_spin_left(spin_speed_entry,spin_distance_deg,mqtt_sender):
     print('Spin Left Message:', spin_speed_entry.get(),spin_distance_deg.get())
     speed = int(spin_speed_entry.get())
     distance = int(spin_distance_deg.get())
-    mqtt_sender.send_message('spin_left',[-speed,speed,distance])
+    mqtt_sender.send_message('spin_left',[speed,-speed,distance])
+
+def handle_spin_right(spin_speed_entry,spin_distance_deg,mqtt_sender):
+    print('Spin Right Message:', spin_speed_entry.get(),spin_distance_deg.get())
+    speed = int(spin_speed_entry.get())
+    distance = int(spin_distance_deg.get())
+    mqtt_sender.send_message('spin_right',[-speed,speed,distance])
