@@ -46,6 +46,16 @@ class MyRobotDelegate(object):
     def calibrate(self):
         self.robot.arm_and_claw.motor.reset_position()
 
+    def arm_down(self,speed):
+        real_speed = -int(speed)
+        while True:
+            self.robot.arm_and_claw.motor.turn_on(real_speed)
+            if self.robot.arm_and_claw.motor.get_position()==0:
+                break
+        self.robot.arm_and_claw.motor.turn_off()
+
+
+
 def print_message_received(method_name, arguments=None):
     print()
     print("The robot's delegate has received a message")
