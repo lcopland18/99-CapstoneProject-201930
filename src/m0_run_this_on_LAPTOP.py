@@ -220,7 +220,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
 
 def handle_stop(mqtt_sender):
     """
-    Tells the robot to stop.
+    Tells the robot to cvx aaaaaaaaastop.
       :type  mqtt_sender:  mqtt.MqttClient
     """
     print()

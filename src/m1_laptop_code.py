@@ -42,9 +42,9 @@ def get_my_frame(root, window, mqtt_sender):
     distance_label.grid(row=1, column=0)
     distance_entry.grid(row=2, column=0)
 
-    forward_button['command'] = lambda: forward(speed_entry.get(), distance_entry.get(), mqtt_sender)
-    backward_button['command'] = lambda: backward(speed_entry.get(), distance_entry.get(), mqtt_sender)
-    
+    forward_button['command'] = lambda: forward(int(speed_entry.get()), int(distance_entry.get()), mqtt_sender)
+    backward_button['command'] = lambda: backward(int(speed_entry.get()), int(distance_entry.get()), mqtt_sender)
+
     # Return your frame:
     return frame
 

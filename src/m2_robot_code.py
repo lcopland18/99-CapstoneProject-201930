@@ -12,10 +12,6 @@ import m2_robot_code as m2
 import m3_robot_code as m3
 
 
-def deg_to_motor(degrees):
-    circumference = 2 * 3 * math.pi
-    distance = (degrees / 360) * circumference
-    return (distance / circumference) * 360
 
 class MyRobotDelegate(object):
     """
@@ -44,7 +40,7 @@ class MyRobotDelegate(object):
 
     def spin_left(self,left_speed,right_speed,degrees):
         print("Spin Left Received",left_speed,right_speed,degrees)
-        distance = deg_to_motor(degrees)
+        distance = degrees * 1 #CHANGE CONSTANT
         self.robot.drive_system.right_motor.reset_position()
         self.robot.drive_system.go(left_speed,right_speed)
         while True:
