@@ -39,7 +39,6 @@ class MyRobotDelegate(object):
         len_deg = distance*(360/(math.pi*1.3))
         self.robot.drive_system.go(speed, speed)
         while True:
-            print(self.robot.drive_system.left_motor.get_position())
             if self.robot.drive_system.left_motor.get_position() >= len_deg:
                 self.robot.drive_system.stop()
                 break
@@ -51,13 +50,14 @@ class MyRobotDelegate(object):
         print_message_received('backward', [speed, distance])
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.right_motor.reset_position()
+        len_deg = -(distance*(360/(math.pi*1.3)))
         self.robot.drive_system.go(-speed, -speed)
         while True:
             print(self.robot.drive_system.left_motor.get_position())
-            if self.robot.drive_system.left_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
+            if self.robot.drive_system.left_motor.get_position() <= len_deg:
                 self.robot.drive_system.stop()
                 break
-            if self.robot.drive_system.right_motor.get_position() >= (self.robot.drive_system.wheel_circumference/distance)*360:
+            if self.robot.drive_system.right_motor.get_position() <= len_deg:
                 self.robot.drive_system.stop()
                 break
 
