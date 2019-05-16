@@ -36,7 +36,7 @@ class MyRobotDelegate(object):
         print_message_received('forward', [speed, distance])
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.right_motor.reset_position()
-        len_deg = distance*(360/(math.pi*1.3))
+        len_deg = distance*(360/(math.pi*1.5))
         self.robot.drive_system.go(speed, speed)
         while True:
             if self.robot.drive_system.left_motor.get_position() >= len_deg:
@@ -60,6 +60,15 @@ class MyRobotDelegate(object):
             if self.robot.drive_system.right_motor.get_position() <= len_deg:
                 self.robot.drive_system.stop()
                 break
+
+    def go_until(self, x, delta, speed):
+        print_message_received('go_until', [x, delta, speed])
+        self.robot.drive_system.go(speed, speed)
+        while True:
+            print(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+
+
+
 
     # TODO: Add methods here as needed.
 
