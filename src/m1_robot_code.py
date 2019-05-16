@@ -9,6 +9,7 @@
 import mqtt_remote_method_calls as mqtt
 import rosebot
 import math
+import time
 import m2_robot_code as m2
 import m3_robot_code as m3
 
@@ -66,11 +67,12 @@ class MyRobotDelegate(object):
         self.robot.drive_system.go(speed, speed)
         while True:
             print(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            time.sleep(.5)
             if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() >= delta + x:
                 self.robot.drive_system.go(speed, speed)
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= delta + x:
-                self.robot.drive_system.stop()
 
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= delta + x:
+                self.robot.drive_system.go(speed, speed)
 
 
     # TODO: Add methods here as needed.
