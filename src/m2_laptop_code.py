@@ -32,7 +32,7 @@ def get_my_frame(root, window, mqtt_sender):
     # DONE 2: Put your name in the above.
 
     # Add the rest of your GUI to your frame:
-    # TODO: Put your GUI onto your frame (using sub-frames if you wish).
+    # DONE: Put your GUI onto your frame (using sub-frames if you wish).
 
     #Buttons and Entry Boxes
     spin_left_button = ttk.Button(spin_frame,text = "Spin Left" )
@@ -113,17 +113,10 @@ class MyLaptopDelegate(object):
     def set_mqtt_sender(self, mqtt_sender):
         self.mqtt_sender = mqtt_sender
 
-    # TODO: Add methods here as needed.
+    # DONE: Add methods here as needed.
 
 
-# TODO: Add functions here as needed.
-
-# def spin(mqtt_sender,left_speed,right_speed,degrees):
-#     print("Sending message to the robot to spin at speed:",left_speed,right_speed)
-#     print("Sending message to the robot to spin:",degrees,"degrees")
-#     mqtt_sender.send_message("spin",[left_speed,right_speed,degrees])
-
-
+# DONE: Add functions here as needed.
 
 def handle_spin_left(spin_speed_entry,spin_distance_deg,mqtt_sender):
     print('Spin Left Message:', spin_speed_entry.get(),spin_distance_deg.get())

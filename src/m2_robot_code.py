@@ -34,10 +34,6 @@ class MyRobotDelegate(object):
 
     # DONE: Add methods here as needed.
 
-    # def spin(self,left_speed,right_speed,degrees):
-    #     print("Spin message received:",left_speed,right_speed,degrees)
-    #     self.robot.drive_system.go(left_speed,right_speed)
-
     def spin_left(self,left_speed,right_speed,degrees):
         print("Spin Left Received",left_speed,right_speed,degrees)
         distance = degrees * 5.0 #CHANGE CONSTANT
