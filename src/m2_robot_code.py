@@ -4,7 +4,7 @@
     and Lauren Copland.
   Spring term, 2018-2019.
 """
-# TODO 1:  Put your name in the above.
+# DONE 1:  Put your name in the above.
 import math
 import mqtt_remote_method_calls as mqtt
 import rosebot
@@ -32,7 +32,7 @@ class MyRobotDelegate(object):
         print_message_received("stop")
         self.robot.drive_system.stop()
 
-    # TODO: Add methods here as needed.
+    # DONE: Add methods here as needed.
 
     # def spin(self,left_speed,right_speed,degrees):
     #     print("Spin message received:",left_speed,right_speed,degrees)
