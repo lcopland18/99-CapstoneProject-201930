@@ -49,7 +49,7 @@ class MyRobotDelegate(object):
                 break
 
     def spin_right(self,left_speed,right_speed,degrees):
-        print("Spin Reft Received",left_speed,right_speed,degrees)
+        print("Spin Right Received",left_speed,right_speed,degrees)
         distance = degrees * 5.0 #CHANGE CONSTANT
         self.robot.drive_system.left_motor.reset_position()
         self.robot.drive_system.go(left_speed,right_speed)
@@ -58,22 +58,20 @@ class MyRobotDelegate(object):
                 self.robot.drive_system.stop()
                 break
 
-    def spin_search(self):
-        print("Spin Search Recieved")
-        self.spin_left(-50,50,2)
-        while True:
-            if self.robot.sensor_system.camera.get_biggest_blob()
+    def spin_until_facing(self,signature,x,delta,speed):
+        print("Spin Until Facing Received")
+        big_enough = 1500
+        signature = "SIG" + str(signature)
+        self.robot.sensor_system.camera.set_signature(signature)
+        while True: #RETURN BLOB VALUES
+            blob = self.robot.sensor_system.camera.get_biggest_blob()
+            print("While",signature,x,delta,blob,big_enough,blob.get_area())
+            if x - blob.center.x <= delta and blob.get_area()>big_enough:
+                self.robot.drive_system.stop()
+                print("Broken",blob.get_area(),big_enough)
+                break
+            self.spin_right(speed, -speed, 1)  # SPIN CLOCKWISE
 
-        self.robot.sensor_system.camera.get_biggest_blob()
-
-    # def spin_left(self, speed, distance_deg):
-    #     print("Spin_Robot",speed,distance_deg)
-    #     distance = (2 * 3 * math.pi)*(distance_deg/360) #CONVERT DEGREES TO DISTANCE TRAVELED
-    #     self.robot.drive_system.go(self, -speed, speed)
-    #     self.robot.drive_system.right_motor.reset_position()
-    #     while True:
-    #         if self.robot.drive_system.right_motor.get_position() == distance:
-    #             self.robot.drive_system.stop()
 
 
 def print_message_received(method_name, arguments=None):

@@ -26,8 +26,8 @@ def get_my_frame(root, window, mqtt_sender):
     spin_frame = ttk.Frame(frame, padding = 10, borderwidth = 5, relief = "ridge")
     search_frame = ttk.Frame(frame,padding = 10, borderwidth = 5, relief = "ridge")
 
-    spin_label = ttk.Label(spin_frame,text = "Spin Buttons")
-    search_label = ttk.Label(search_frame, text = "Search Buttons")
+    spin_label = ttk.Label(frame,text = "Spin Buttons")
+    search_label = ttk.Label(frame, text = "Search Buttons")
 
     # DONE 2: Put your name in the above.
 
@@ -37,7 +37,7 @@ def get_my_frame(root, window, mqtt_sender):
     #Buttons and Entry Boxes
     spin_left_button = ttk.Button(spin_frame,text = "Spin Left" )
     spin_right_button = ttk.Button(spin_frame,text = "Spin Right")
-    spin_until_facing_button = ttk.Button(frame,text = "Search for Object")
+    spin_until_facing_button = ttk.Button(search_frame,text = "Search for Object")
 
     spin_left_right_entry = ttk.Entry(spin_frame,width = 8)
     spin_left_right_label = ttk.Label(spin_frame, text = "Spin 0° to 360°")
@@ -45,6 +45,22 @@ def get_my_frame(root, window, mqtt_sender):
     spin_speed_entry = ttk.Entry(spin_frame,width = 8)
     spin_speed_label = ttk.Label(spin_frame,text = "Spin Speed 0 to 100")
     spin_speed_entry.insert(0,'100')
+
+    SUF_signature_entry = ttk.Entry(search_frame,width = 8)
+    SUF_signature_entry.insert(0,'1')
+    SUF_signature_label = ttk.Label(search_frame,text = "Enter Color Signature")
+
+    SUF_X_entry = ttk.Entry(search_frame,width = 8)
+    SUF_X_entry.insert(0,'150')
+    SUF_X_label = ttk.Label(search_frame, text = "Block location on screen 0 to 299")
+
+    SUF_delta_entry = ttk.Entry(search_frame,width = 8)
+    SUF_delta_entry.insert(0,'10')
+    SUF_delta_label = ttk.Label(search_frame, text = "x coordinate +/- value")
+
+    SUF_speed_entry = ttk.Entry(search_frame,width = 8)
+    SUF_speed_entry.insert(0,'50')
+    SUF_speed_label = ttk.Label(search_frame,text = "Spin Speed 0 to 100")
 
     #Grid
     spin_left_button.grid(column =0, row = 3)
@@ -58,16 +74,26 @@ def get_my_frame(root, window, mqtt_sender):
 
     spin_frame.grid(column = 0,row = 1)
     search_frame.grid(column = 2, row = 1)
-    spin_label.grid()
-    search_label.grid()
+    spin_label.grid(column = 0, row = 0)
+    search_label.grid(column = 2, row = 0)
 
-    # search_button.grid(column = 1, row = 6)
+
+    spin_until_facing_button.grid(column = 0, row = 8)
+
+    SUF_signature_label.grid(column = 0,row = 0)
+    SUF_delta_label.grid(column = 0, row = 2)
+    SUF_X_label.grid(column = 0, row = 4)
+    SUF_speed_label.grid(column =0, row = 6)
+    SUF_signature_entry.grid(column =0, row = 1)
+    SUF_delta_entry.grid(column = 0, row =3)
+    SUF_X_entry.grid(column = 0, row =5 )
+    SUF_speed_entry.grid(column =0, row = 7)
+
 
     #Lambda Functions
     spin_left_button['command'] = lambda: handle_spin_left(spin_speed_entry,spin_left_right_entry,mqtt_sender)
     spin_right_button['command'] = lambda: handle_spin_right(spin_speed_entry,spin_left_right_entry,mqtt_sender)
-    # search_button['command'] = lambda: handle_spin_search(#ADD HERE)
-
+    spin_until_facing_button['command'] = lambda: handle_spin_until_facing(SUF_signature_entry, SUF_X_entry, SUF_delta_entry, SUF_speed_entry,mqtt_sender)
 
 
     # Return your frame:
@@ -111,6 +137,10 @@ def handle_spin_right(spin_speed_entry,spin_distance_deg,mqtt_sender):
     distance = int(spin_distance_deg.get())
     mqtt_sender.send_message('spin_right',[-speed,speed,distance])
 
-# def handle_spin_search(mqtt_sender):
-#     print('Spin Search Message:')
-#     mqtt_sender.send_message('spin_search',[])
+def handle_spin_until_facing(signature, x, delta, speed, mqtt_sender):
+    print('Spin Search Message:')
+    signature = int(signature.get())
+    x = int(x.get())
+    delta = int(delta.get())
+    speed = int(speed.get())
+    mqtt_sender.send_message('spin_until_facing',[signature,x,delta,speed])
