@@ -63,16 +63,14 @@ class MyRobotDelegate(object):
                 break
 
     def go_until(self, x, delta, speed):
-        print_message_received('go_until', [x, delta, speed])
-        self.robot.drive_system.go(speed, speed)
+        self.robot.drive_system.go(speed,speed)
         while True:
-            print(self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            time.sleep(.5)
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() >= delta + x:
-                self.robot.drive_system.go(speed, speed)
-
-            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= delta + x:
-                self.robot.drive_system.go(speed, speed)
+            print_message_received("go_until",[speed,x])
+            dist_away_in=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(dist_away_in)
+            if dist_away_in < x:
+                self.robot.drive_system.stop()
+                break
 
 
     # TODO: Add methods here as needed.
